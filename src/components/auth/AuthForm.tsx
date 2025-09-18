@@ -5,6 +5,8 @@ import { auth, googleProvider } from '../../lib/firebase';
 import { signInWithPopup } from 'firebase/auth';
 import { Button } from '../ui/Button';
 import { Input } from '../ui/Input';
+import { useAuth } from '../../contexts/AuthContext';
+
 import { Select } from '../ui/Select';
 
 export function AuthForm() {
