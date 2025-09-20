@@ -135,10 +135,12 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
         // Create profile with the provided phone and role
         const { error: profileError } = await supabase
           .from('profiles')
-          .insert({
+          .upsert({
             user_id: data.user.id,
             display_name: email.split('@')[0], // Use email prefix as default display name
             role: role || 'player'
+          }, {
+            onConflict: 'user_id'
           });
 
         if (profileError) {
