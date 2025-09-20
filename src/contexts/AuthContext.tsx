@@ -122,34 +122,29 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
 
   const signUpAndCreateProfile = async (email: string, password: string, phone?: string, role?: string) => {
     try {
+      console.log('Signing up with role:', role);
+      
       const { data, error } = await supabase.auth.signUp({
         email,
         password,
+        options: {
+          data: {
+            role: role || 'player',
+            display_name: email.split('@')[0]
+          }
+        }
       });
 
       if (error) {
+        console.error('Signup error:', error);
         return { error };
       }
 
-      if (data.user) {
-        // Create profile with the provided phone and role
-        const { error: profileError } = await supabase
-          .from('profiles')
-          .upsert({
-            user_id: data.user.id,
-            display_name: email.split('@')[0], // Use email prefix as default display name
-            role: role || 'player'
-          }, {
-            onConflict: 'user_id'
-          });
-
-        if (profileError) {
-          console.error('Profile creation error:', profileError);
-        }
-      }
+      console.log('Signup successful, user will be created via trigger');
 
       return { error: null };
     } catch (err) {
+      console.error('Signup exception:', err);
       return { error: err };
     }
   };

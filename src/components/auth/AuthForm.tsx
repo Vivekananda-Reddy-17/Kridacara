@@ -22,12 +22,16 @@ export function AuthForm() {
     e.preventDefault();
     setLoading(true);
     setError('');
+    
+    console.log('Form submission - isSignUp:', isSignUp, 'role:', role);
 
     try {
       if (isSignUp) {
+        console.log('Attempting signup with role:', role);
         const { error } = await signUpAndCreateProfile(email, password, undefined, role);
         
         if (error) {
+          console.error('Signup error in form:', error);
           if (error.message?.includes('user_already_exists') || error.code === 'user_already_exists') {
             setError('This email is already registered. Switching to sign in...');
             setTimeout(() => {
@@ -37,13 +41,20 @@ export function AuthForm() {
           } else {
             setError(error.message);
           }
+          return;
         } else {
           setError('Account created successfully! You can now sign in.');
+          setTimeout(() => {
+            setIsSignUp(false);
+            setError('');
+          }, 2000);
         }
       } else {
+        console.log('Attempting signin');
         const { error } = await signIn(email, password);
         
         if (error) {
+          console.error('Signin error:', error);
           if (error.message?.includes('invalid_credentials') || error.code === 'invalid_credentials') {
             setError('Invalid email or password. Please double-check your credentials and try again.');
           } else {
@@ -53,6 +64,7 @@ export function AuthForm() {
       }
 
     } catch (err) {
+      console.error('Form submission error:', err);
       setError('An unexpected error occurred');
     } finally {
       setLoading(false);
