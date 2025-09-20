@@ -110,7 +110,11 @@ export function CoachDashboard() {
     return 'Needs Improvement';
   };
 
-  if (user?.role !== 'coach' && user?.role !== 'admin') {
+  // Debug logging
+  console.log('Current user role:', user?.role);
+  console.log('User object:', user);
+
+  if (!user || (user.role !== 'coach' && user.role !== 'admin')) {
     return (
       <div className="min-h-screen bg-gray-50 flex items-center justify-center">
         <Card className="p-8 text-center">
@@ -123,7 +127,12 @@ export function CoachDashboard() {
             <span className="bg-blue-100 text-blue-800 px-3 py-1 rounded-full text-sm">Coaches</span>
             <span className="bg-purple-100 text-purple-800 px-3 py-1 rounded-full text-sm">Administrators</span>
           </div>
-          <p className="text-sm text-gray-500 mb-6">Your current role: <span className="font-semibold capitalize">{user?.role || 'Player'}</span></p>
+          <p className="text-sm text-gray-500 mb-6">
+            Your current role: <span className="font-semibold capitalize">{user?.role || 'Not Set'}</span>
+          </p>
+          <p className="text-xs text-gray-400 mb-6">
+            Debug: User ID: {user?.id || 'No user'}, Role: {user?.role || 'undefined'}
+          </p>
           <Button onClick={() => navigate('/dashboard')}>
             Back to Dashboard
           </Button>

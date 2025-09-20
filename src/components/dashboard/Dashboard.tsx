@@ -210,19 +210,24 @@ export function Dashboard() {
         </div>
 
         {/* Role-specific sections */}
-        {user?.role === 'admin' && (
+        {(user?.role === 'admin' || user?.role === 'coach') && (
           <div className="mb-8">
-            <h2 className="text-2xl font-bold text-gray-900 mb-6">Admin Tools</h2>
+            <h2 className="text-2xl font-bold text-gray-900 mb-6">
+              {user?.role === 'admin' ? 'Admin Tools' : 'Coach Tools'}
+            </h2>
             <Card hover className="p-6 bg-gradient-to-br from-indigo-50 to-indigo-100 border-indigo-200">
               <div className="text-center">
                 <div className="mx-auto w-12 h-12 bg-indigo-600 rounded-full flex items-center justify-center mb-4">
                   <Users className="h-6 w-6 text-white" />
                 </div>
                 <h3 className="text-lg font-bold text-gray-900 mb-2">
-                  System Administration
+                  {user?.role === 'admin' ? 'System Administration' : 'Talent Discovery'}
                 </h3>
                 <p className="text-gray-600 text-sm mb-4">
-                  Manage users, assessments, and system settings
+                  {user?.role === 'admin' 
+                    ? 'Manage users, assessments, and system settings'
+                    : 'Discover and analyze talented athletes'
+                  }
                 </p>
                 <div className="space-y-2">
                   <Button 
@@ -230,7 +235,7 @@ export function Dashboard() {
                     onClick={() => navigate('/coach')}
                     className="w-full bg-indigo-600 hover:bg-indigo-700"
                   >
-                    Manage Users
+                    {user?.role === 'admin' ? 'Manage Users' : 'Scout Players'}
                   </Button>
                   <Button 
                     size="sm"
@@ -238,7 +243,7 @@ export function Dashboard() {
                     variant="outline"
                     className="w-full"
                   >
-                    Review Assessments
+                    {user?.role === 'admin' ? 'Review Assessments' : 'View Rankings'}
                   </Button>
                 </div>
               </div>
@@ -246,41 +251,6 @@ export function Dashboard() {
           </div>
         )}
 
-        {user?.role === 'coach' && (
-          <div className="mb-8">
-            <h2 className="text-2xl font-bold text-gray-900 mb-6">Coach Tools</h2>
-            <Card hover className="p-6 bg-gradient-to-br from-green-50 to-green-100 border-green-200">
-              <div className="text-center">
-                <div className="mx-auto w-12 h-12 bg-green-600 rounded-full flex items-center justify-center mb-4">
-                  <Target className="h-6 w-6 text-white" />
-                </div>
-                <h3 className="text-lg font-bold text-gray-900 mb-2">
-                  Talent Discovery
-                </h3>
-                <p className="text-gray-600 text-sm mb-4">
-                  Find and analyze promising athletes
-                </p>
-                <div className="space-y-2">
-                  <Button 
-                    size="sm"
-                    onClick={() => navigate('/coach')}
-                    className="w-full bg-green-600 hover:bg-green-700"
-                  >
-                    Scout Players
-                  </Button>
-                  <Button 
-                    size="sm"
-                    onClick={() => navigate('/leaderboard')}
-                    variant="outline"
-                    className="w-full"
-                  >
-                    View Rankings
-                  </Button>
-                </div>
-              </div>
-            </Card>
-          </div>
-        )}
 
         {/* Legacy Assessment Modules - Keep for SIH Demo */}
         <div className="mb-8">
