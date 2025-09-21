@@ -1,15 +1,23 @@
 import React from 'react';
-import { Activity, Zap, User, TrendingUp, Trophy, Users, MessageSquare, Target } from 'lucide-react';
-import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../../contexts/AuthContext';
-import { Card } from '../ui/Card';
-import { Button } from '../ui/Button';
+import { PlayerDashboard } from './PlayerDashboard';
+import { CoachDashboard } from './CoachDashboard';
+import { AdminDashboard } from './AdminDashboard';
 
 export function Dashboard() {
-  const navigate = useNavigate();
   const { user } = useAuth();
 
-  const bmiScore = user?.bmi ? Math.round((25 - Math.abs(user.bmi - 22)) * 4) : 0;
+  // Route to appropriate dashboard based on user role
+  switch (user?.role) {
+    case 'coach':
+      return <CoachDashboard />;
+    case 'admin':
+      return <AdminDashboard />;
+    case 'player':
+    default:
+      return <PlayerDashboard />;
+  }
+}
 
   return (
     <div className="min-h-screen bg-gray-50">
