@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { User, Trophy, Calendar, TrendingUp, Target, Clock, Star, Activity } from 'lucide-react';
+import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../../contexts/AuthContext';
 import { Card } from '../ui/Card';
 import { Button } from '../ui/Button';
@@ -44,6 +45,7 @@ const dummyRecentAchievements = [
 
 export function PlayerDashboard() {
   const { user } = useAuth();
+  const navigate = useNavigate();
   const [loading, setLoading] = useState(false);
 
   const getEventTypeColor = (type: string) => {
@@ -218,17 +220,95 @@ export function PlayerDashboard() {
             Ready for Your Next Challenge?
           </h3>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Button size="lg" className="bg-blue-600 hover:bg-blue-700">
+            <Button 
+              size="lg" 
+              className="bg-blue-600 hover:bg-blue-700"
+              onClick={() => navigate('/assessment')}
+            >
               Take Assessment
             </Button>
-            <Button size="lg" variant="outline">
+            <Button 
+              size="lg" 
+              variant="outline"
+              onClick={() => navigate('/profile')}
+            >
               View Progress
             </Button>
-            <Button size="lg" variant="outline">
+            <Button 
+              size="lg" 
+              variant="outline"
+              onClick={() => navigate('/community')}
+            >
               Join Community
             </Button>
           </div>
         </Card>
+      </div>
+
+      {/* Live AI Analysis Section */}
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-8">
+        <div className="mb-8">
+          <h2 className="text-2xl font-bold text-gray-900 mb-6">Live AI Analysis</h2>
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+            {/* Fitness Assessment */}
+            <Card hover className="p-8 bg-gradient-to-br from-blue-50 to-blue-100 border-blue-200">
+              <div className="text-center">
+                <div className="mx-auto w-16 h-16 bg-blue-600 rounded-full flex items-center justify-center mb-6">
+                  <Activity className="h-8 w-8 text-white" />
+                </div>
+                <h3 className="text-2xl font-bold text-gray-900 mb-4">
+                  Basic Fitness Assessment
+                </h3>
+                <p className="text-gray-600 mb-6">
+                  Test your push-up endurance with AI-powered form analysis. 
+                  Get real-time counting and technique feedback.
+                </p>
+                <div className="flex flex-col items-center space-y-3">
+                  <div className="flex items-center text-sm text-blue-700 bg-blue-50 px-3 py-1 rounded-full">
+                    <span className="w-2 h-2 bg-blue-500 rounded-full mr-2"></span>
+                    Webcam Required
+                  </div>
+                  <Button 
+                    size="lg"
+                    onClick={() => navigate('/fitness')}
+                    className="w-full max-w-xs"
+                  >
+                    Take Fitness Test
+                  </Button>
+                </div>
+              </div>
+            </Card>
+
+            {/* Badminton Assessment */}
+            <Card hover className="p-8 bg-gradient-to-br from-orange-50 to-orange-100 border-orange-200">
+              <div className="text-center">
+                <div className="mx-auto w-16 h-16 bg-orange-600 rounded-full flex items-center justify-center mb-6">
+                  <Activity className="h-8 w-8 text-white" />
+                </div>
+                <h3 className="text-2xl font-bold text-gray-900 mb-4">
+                  Badminton Skill Assessment
+                </h3>
+                <p className="text-gray-600 mb-6">
+                  Analyze your smash speed and technique with advanced video processing. 
+                  Get detailed performance metrics.
+                </p>
+                <div className="flex flex-col items-center space-y-3">
+                  <div className="flex items-center text-sm text-orange-700 bg-orange-50 px-3 py-1 rounded-full">
+                    <span className="w-2 h-2 bg-orange-500 rounded-full mr-2"></span>
+                    Video Upload
+                  </div>
+                  <Button 
+                    size="lg"
+                    onClick={() => navigate('/badminton')}
+                    className="w-full max-w-xs bg-orange-600 hover:bg-orange-700 focus:ring-orange-500"
+                  >
+                    Analyze Smash Speed
+                  </Button>
+                </div>
+              </div>
+            </Card>
+          </div>
+        </div>
       </div>
     </div>
   );
