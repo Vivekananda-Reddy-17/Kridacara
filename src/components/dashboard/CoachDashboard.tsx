@@ -281,11 +281,20 @@ export function CoachDashboard() {
                       <div className="mt-3 pt-3 border-t border-gray-200">
                         <p className="text-xs text-gray-600 mb-2">Next: {player.nextEvent}</p>
                         <div className="flex space-x-2">
-                          <Button size="sm" variant="outline" icon={Eye}>
-                            View
+                          <Button
+                            size="sm"
+                            variant="outline"
+                            icon={Eye}
+                            onClick={() => alert(`View ${player.name}'s detailed profile`)}
+                          >
+                            View Profile
                           </Button>
-                          <Button size="sm" variant="outline" icon={MessageSquare}>
-                            Message
+                          <Button
+                            size="sm"
+                            icon={MessageSquare}
+                            onClick={() => alert(`Send message to ${player.name}`)}
+                          >
+                            Contact
                           </Button>
                         </div>
                       </div>
@@ -319,10 +328,20 @@ export function CoachDashboard() {
                           {getTrendIcon(player.trend, player.trendValue)}
                         </div>
                         <div className="flex space-x-2">
-                          <Button size="sm" variant="outline" icon={Eye}>
+                          <Button
+                            size="sm"
+                            variant="outline"
+                            icon={Eye}
+                            onClick={() => alert(`View ${player.name}'s detailed profile`)}
+                          >
                             View
                           </Button>
-                          <Button size="sm" variant="outline" icon={MessageSquare}>
+                          <Button
+                            size="sm"
+                            variant="outline"
+                            icon={MessageSquare}
+                            onClick={() => alert(`Send message to ${player.name}`)}
+                          >
                             Message
                           </Button>
                         </div>
@@ -361,16 +380,36 @@ export function CoachDashboard() {
             <Card className="p-6 mt-6 bg-gradient-to-br from-indigo-50 to-purple-50 border-indigo-200">
               <h3 className="text-lg font-bold text-gray-900 mb-4">Quick Actions</h3>
               <div className="space-y-3">
-                <Button fullWidth variant="outline" size="sm">
+                <Button 
+                  fullWidth 
+                  variant="outline" 
+                  size="sm"
+                  onClick={() => alert('Create new assessment template')}
+                >
                   Create Assessment
                 </Button>
-                <Button fullWidth variant="outline" size="sm">
+                <Button 
+                  fullWidth 
+                  variant="outline" 
+                  size="sm"
+                  onClick={() => alert('Send message to entire team')}
+                >
                   Send Team Message
                 </Button>
-                <Button fullWidth variant="outline" size="sm">
+                <Button 
+                  fullWidth 
+                  variant="outline" 
+                  size="sm"
+                  onClick={() => alert('Generate team performance report')}
+                >
                   Generate Report
                 </Button>
-                <Button fullWidth variant="outline" size="sm">
+                <Button 
+                  fullWidth 
+                  variant="outline" 
+                  size="sm"
+                  onClick={() => alert('Schedule training session')}
+                >
                   Schedule Training
                 </Button>
               </div>
