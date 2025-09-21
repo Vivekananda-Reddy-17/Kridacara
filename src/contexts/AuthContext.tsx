@@ -135,7 +135,6 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
             }
           }
         });
-        if (error) throw error;
         console.log('User created:', data);
       } catch (err) {
         console.error('Signup failed:', err);
