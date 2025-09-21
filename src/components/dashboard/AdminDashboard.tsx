@@ -52,6 +52,7 @@ const dummySystemAlerts = [
 
 export function AdminDashboard() {
   const { user } = useAuth();
+  const navigate = useNavigate();
   const [selectedTimeframe, setSelectedTimeframe] = useState('30d');
   const [selectedUserFilter, setSelectedUserFilter] = useState('all');
 
@@ -280,7 +281,12 @@ export function AdminDashboard() {
                   </div>
                 ))}
               </div>
-              <Button className="w-full mt-4" variant="outline" size="sm">
+              <Button 
+                className="w-full mt-4" 
+                variant="outline" 
+                size="sm"
+                onClick={() => alert('View all system alerts')}
+              >
                 View All Alerts
               </Button>
             </Card>
@@ -289,19 +295,49 @@ export function AdminDashboard() {
             <Card className="p-6 bg-gradient-to-br from-gray-50 to-blue-50 border-gray-200">
               <h3 className="text-lg font-bold text-gray-900 mb-4">Admin Actions</h3>
               <div className="space-y-3">
-                <Button fullWidth variant="outline" size="sm" icon={UserCheck}>
+                <Button 
+                  fullWidth 
+                  variant="outline" 
+                  size="sm" 
+                  icon={UserCheck}
+                  onClick={() => alert('Open user management interface')}
+                >
                   Manage Users
                 </Button>
-                <Button fullWidth variant="outline" size="sm" icon={Settings}>
+                <Button 
+                  fullWidth 
+                  variant="outline" 
+                  size="sm" 
+                  icon={Settings}
+                  onClick={() => alert('Open system configuration')}
+                >
                   System Config
                 </Button>
-                <Button fullWidth variant="outline" size="sm" icon={FileText}>
+                <Button 
+                  fullWidth 
+                  variant="outline" 
+                  size="sm" 
+                  icon={FileText}
+                  onClick={() => alert('Generate system reports')}
+                >
                   Generate Reports
                 </Button>
-                <Button fullWidth variant="outline" size="sm" icon={Database}>
+                <Button 
+                  fullWidth 
+                  variant="outline" 
+                  size="sm" 
+                  icon={Database}
+                  onClick={() => alert('Open database management tools')}
+                >
                   Database Tools
                 </Button>
-                <Button fullWidth variant="outline" size="sm" icon={Shield}>
+                <Button 
+                  fullWidth 
+                  variant="outline" 
+                  size="sm" 
+                  icon={Shield}
+                  onClick={() => alert('Run security audit')}
+                >
                   Security Audit
                 </Button>
               </div>
@@ -333,14 +369,22 @@ export function AdminDashboard() {
                     <Button size="sm" className="bg-green-600 hover:bg-green-700">
                       Approve
                     </Button>
-                    <Button size="sm" variant="outline">
+                    <Button 
+                      size="sm" 
+                      variant="outline"
+                      onClick={() => alert(`Review ${approval.type} for ${approval.user}`)}
+                    >
                       Review
                     </Button>
                   </div>
                 </div>
               ))}
             </div>
-            <Button className="w-full mt-4" variant="outline">
+            <Button 
+              className="w-full mt-4" 
+              variant="outline"
+              onClick={() => alert('View all pending approvals')}
+            >
               View All Pending
             </Button>
           </Card>
@@ -375,7 +419,11 @@ export function AdminDashboard() {
                 </div>
               ))}
             </div>
-            <Button className="w-full mt-4" variant="outline">
+            <Button 
+              className="w-full mt-4" 
+              variant="outline"
+              onClick={() => alert('Open user management panel')}
+            >
               Manage All Users
             </Button>
           </Card>
