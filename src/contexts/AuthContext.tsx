@@ -124,16 +124,23 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     try {
       console.log('Signing up with role:', role);
       
-      const { data, error } = await supabase.auth.signUp({
-        email,
-        password,
-        options: {
-          data: {
-            role: (role?.trim() || 'player').toLowerCase(),
-            display_name: email.split('@')[0]
+      try {
+        const { data, error } = await supabase.auth.signUp({
+          email,
+          password,
+          options: {
+            data: {
+              role: (role?.trim() || 'player').toLowerCase(),
+              display_name: email.split('@')[0]
+            }
           }
-        }
-      });
+        });
+        if (error) throw error;
+        console.log('User created:', data);
+      } catch (err) {
+        console.error('Signup failed:', err);
+      }
+
 
       if (error) {
         console.error('Signup error:', error);
