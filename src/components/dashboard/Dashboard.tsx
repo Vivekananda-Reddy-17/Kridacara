@@ -17,7 +17,6 @@ export function Dashboard() {
     default:
       return <PlayerDashboard />;
   }
-}
 
   return (
     <div className="min-h-screen bg-gray-50">
