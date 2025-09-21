@@ -129,7 +129,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
         password,
         options: {
           data: {
-            role: (role || 'player').toLowerCase(),
+            role: (role).toLowerCase(),
             display_name: email.split('@')[0]
           }
         }
