@@ -181,9 +181,11 @@ pytest
 cd frontend
 npm test
 🎮 Demo Accounts
-Admin: admin@kridacara.test / AdminDemo123!
+Admin: demo_admin@gmail.com / admin123
 
-User: demo@kridacara.test / DemoUser123!
+User: demo_player@gmail.com / Svivek@2007
+
+Coach: demo_coach@gmail.com / Svivek@2007
 
 📈 Impact & Alignment
 With 1 lakh users in Year 1, generates 10M+ data points.
