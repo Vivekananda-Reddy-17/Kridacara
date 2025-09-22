@@ -261,7 +261,7 @@ export function BodyMetricsAnalysis() {
                   </h3>
                   <ul className="space-y-2 text-sm text-gray-600">
                     <li>• Stand straight with good posture</li>
-                    <li>• Arms relaxed at your sides</li>
+                    <li>• Arms relaxed at your sides in T-pose</li>
                     <li>• Face the camera directly</li>
                     <li>• Wear fitted clothing</li>
                     <li>• Ensure good lighting</li>
