@@ -120,40 +120,42 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     }
   };
 
-  const signUpAndCreateProfile = async (email: string, password: string, phone?: string, role?: string) => {
-    try {
-      console.log('Signing up with role:', role);
-      
-      try {
-        const { data, error } = await supabase.auth.signUp({
-          email,
-          password,
-          options: {
-            data: {
-              role: (role?.trim() || 'player').toLowerCase(),
-              display_name: email.split('@')[0]
-            }
-          }
-        });
-        console.log('User created:', data);
-      } catch (err) {
-        console.error('Signup failed:', err);
-      }
+  const signUpAndCreateProfile = async (
+  email: string,
+  password: string,
+  phone?: string,
+  role?: string
+) => {
+  try {
+    console.log("Signing up with role:", role);
 
+    const { data, error } = await supabase.auth.signUp({
+      email,
+      password,
+      options: {
+        data: {
+          role: (role?.trim() || "player").toLowerCase(),
+          display_name: email.split("@")[0],
+          phone: phone || null,
+        },
+      },
+    });
 
-      if (error) {
-        console.error('Signup error:', error);
-        return { error };
-      }
-
-      console.log('Signup successful, user will be created via trigger');
-
-      return { error: null };
-    } catch (err) {
-      console.error('Signup exception:', err);
-      return { error: err };
+    if (error) {
+      console.error("Signup error:", error.message);
+      return { error };
     }
-  };
+
+    console.log("User created:", data);
+    console.log("Signup successful, user will be created via trigger");
+
+    return { error: null, data };
+  } catch (err) {
+    console.error("Signup exception:", err);
+    return { error: err };
+  }
+};
+
 
   return (
     <AuthContext.Provider value={{ user, loading, updateProfile, signUpAndCreateProfile }}>
