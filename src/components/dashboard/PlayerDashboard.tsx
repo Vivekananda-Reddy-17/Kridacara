@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from 'react';
-import { User, Trophy, Calendar, TrendingUp, Target, Clock, Star, Activity } from 'lucide-react';
+import { User, Trophy, Calendar, TrendingUp, Target, Clock, Star, Activity, Camera, Zap } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../../contexts/AuthContext';
 import { Card } from '../ui/Card';
 import { Button } from '../ui/Button';
-import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, BarChart, Bar } from 'recharts';
+import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, BarChart, Bar, RadialBarChart, RadialBar } from 'recharts';
 
 // Dummy data - replace with real queries later
 const dummyStats = {
@@ -12,8 +12,20 @@ const dummyStats = {
   averageScore: 78,
   bestCategory: 'Strength',
   currentRank: 45,
-  improvementRate: 12
+  improvementRate: 12,
+  spi: 742 // Sports Performance Index out of 1000
 };
+
+// SPI breakdown data
+const spiBreakdown = [
+  { name: 'Physical & Sports', value: 420, max: 600, color: '#3b82f6' },
+  { name: 'Mental Fitness', value: 156, max: 200, color: '#10b981' },
+  { name: 'Body Metrics', value: 166, max: 200, color: '#f59e0b' }
+];
+
+const spiData = [
+  { name: 'SPI', value: 742, max: 1000, fill: '#3b82f6' }
+];
 
 const dummyPerformanceData = [
   { month: 'Jan', score: 65 },
@@ -73,12 +85,80 @@ export function PlayerDashboard() {
             </div>
             <div className="hidden md:flex items-center space-x-4">
               <div className="text-right">
-                <p className="text-sm text-gray-500">Current Rank</p>
-                <p className="text-2xl font-bold text-blue-600">#{dummyStats.currentRank}</p>
+                <p className="text-sm text-gray-500">Sports Performance Index</p>
+                <p className="text-3xl font-bold text-blue-600">{dummyStats.spi}/1000</p>
+                <p className="text-xs text-gray-500">Rank #{dummyStats.currentRank}</p>
               </div>
             </div>
           </div>
         </div>
+
+        {/* SPI Overview Section */}
+        <Card className="p-8 mb-8 bg-gradient-to-r from-blue-50 to-purple-50 border-blue-200">
+          <h2 className="text-2xl font-bold text-gray-900 mb-6 text-center">
+            Your Sports Performance Index (SPI)
+          </h2>
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+            {/* SPI Radial Chart */}
+            <div className="text-center">
+              <ResponsiveContainer width="100%" height={250}>
+                <RadialBarChart cx="50%" cy="50%" innerRadius="60%" outerRadius="90%" data={spiData}>
+                  <RadialBar dataKey="value" cornerRadius={10} fill="#3b82f6" />
+                  <text x="50%" y="50%" textAnchor="middle" dominantBaseline="middle" className="text-3xl font-bold fill-gray-900">
+                    {dummyStats.spi}
+                  </text>
+                  <text x="50%" y="60%" textAnchor="middle" dominantBaseline="middle" className="text-sm fill-gray-600">
+                    / 1000
+                  </text>
+                </RadialBarChart>
+              </ResponsiveContainer>
+              <div className="mt-4">
+                <p className="text-lg font-semibold text-gray-900">
+                  {dummyStats.spi >= 800 ? 'Elite Athlete' : 
+                   dummyStats.spi >= 600 ? 'Advanced' : 
+                   dummyStats.spi >= 400 ? 'Intermediate' : 'Beginner'}
+                </p>
+                <p className="text-sm text-gray-600">Performance Level</p>
+              </div>
+            </div>
+
+            {/* SPI Breakdown */}
+            <div>
+              <h3 className="text-lg font-semibold text-gray-900 mb-4">SPI Breakdown</h3>
+              <div className="space-y-4">
+                {spiBreakdown.map((item, index) => (
+                  <div key={index} className="space-y-2">
+                    <div className="flex justify-between items-center">
+                      <span className="text-sm font-medium text-gray-700">{item.name}</span>
+                      <span className="text-sm font-bold text-gray-900">{item.value}/{item.max}</span>
+                    </div>
+                    <div className="w-full bg-gray-200 rounded-full h-3">
+                      <div 
+                        className="h-3 rounded-full transition-all duration-300"
+                        style={{ 
+                          width: `${(item.value / item.max) * 100}%`,
+                          backgroundColor: item.color 
+                        }}
+                      ></div>
+                    </div>
+                    <div className="text-xs text-gray-500">
+                      {Math.round((item.value / item.max) * 100)}% Complete
+                    </div>
+                  </div>
+                ))}
+              </div>
+              
+              <div className="mt-6 p-4 bg-blue-50 rounded-lg">
+                <h4 className="font-semibold text-blue-900 mb-2">Improve Your SPI</h4>
+                <ul className="text-sm text-blue-800 space-y-1">
+                  <li>• Complete more fitness assessments (+Physical)</li>
+                  <li>• Take body metrics analysis (+Body Metrics)</li>
+                  <li>• Practice mindfulness exercises (+Mental)</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </Card>
 
         {/* Quick Stats Cards */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
@@ -122,6 +202,87 @@ export function PlayerDashboard() {
             </div>
           </Card>
         </div>
+
+        {/* Body Metrics Analysis Section */}
+        <Card className="p-8 mb-8 bg-gradient-to-r from-orange-50 to-red-50 border-orange-200">
+          <h2 className="text-2xl font-bold text-gray-900 mb-6 text-center">
+            AI Body Metrics Analysis
+          </h2>
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+            <div className="text-center">
+              <div className="mx-auto w-24 h-24 bg-orange-100 rounded-full flex items-center justify-center mb-6">
+                <Camera className="h-12 w-12 text-orange-600" />
+              </div>
+              <h3 className="text-xl font-bold text-gray-900 mb-4">
+                Upload Your Photo
+              </h3>
+              <p className="text-gray-600 mb-6">
+                Get detailed body composition analysis using AI-powered pose detection. 
+                Upload a full-body photo for comprehensive metrics.
+              </p>
+              <Button 
+                size="lg"
+                onClick={() => navigate('/body-metrics')}
+                className="bg-orange-600 hover:bg-orange-700"
+              >
+                Start Body Analysis
+              </Button>
+            </div>
+            
+            <div>
+              <h3 className="text-lg font-semibold text-gray-900 mb-4">Analysis Includes:</h3>
+              <div className="grid grid-cols-2 gap-4 text-sm">
+                <div className="space-y-2">
+                  <div className="flex items-center">
+                    <div className="w-2 h-2 bg-orange-500 rounded-full mr-2"></div>
+                    <span>Shoulder Breadth</span>
+                  </div>
+                  <div className="flex items-center">
+                    <div className="w-2 h-2 bg-orange-500 rounded-full mr-2"></div>
+                    <span>Chest Width</span>
+                  </div>
+                  <div className="flex items-center">
+                    <div className="w-2 h-2 bg-orange-500 rounded-full mr-2"></div>
+                    <span>Waist Width</span>
+                  </div>
+                  <div className="flex items-center">
+                    <div className="w-2 h-2 bg-orange-500 rounded-full mr-2"></div>
+                    <span>Hip Width</span>
+                  </div>
+                </div>
+                <div className="space-y-2">
+                  <div className="flex items-center">
+                    <div className="w-2 h-2 bg-orange-500 rounded-full mr-2"></div>
+                    <span>Arm Length</span>
+                  </div>
+                  <div className="flex items-center">
+                    <div className="w-2 h-2 bg-orange-500 rounded-full mr-2"></div>
+                    <span>Leg Proportions</span>
+                  </div>
+                  <div className="flex items-center">
+                    <div className="w-2 h-2 bg-orange-500 rounded-full mr-2"></div>
+                    <span>Body Symmetry</span>
+                  </div>
+                  <div className="flex items-center">
+                    <div className="w-2 h-2 bg-orange-500 rounded-full mr-2"></div>
+                    <span>Posture Analysis</span>
+                  </div>
+                </div>
+              </div>
+              
+              <div className="mt-6 p-4 bg-orange-50 rounded-lg">
+                <h4 className="font-semibold text-orange-900 mb-2">Current Body Metrics Score</h4>
+                <div className="flex items-center justify-between">
+                  <span className="text-orange-800">Body Composition Index</span>
+                  <span className="text-xl font-bold text-orange-900">166/200</span>
+                </div>
+                <div className="w-full bg-orange-200 rounded-full h-2 mt-2">
+                  <div className="bg-orange-600 h-2 rounded-full" style={{ width: '83%' }}></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </Card>
 
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 mb-8">
           {/* Performance Chart */}
@@ -283,7 +444,7 @@ export function PlayerDashboard() {
             <Card hover className="p-8 bg-gradient-to-br from-orange-50 to-orange-100 border-orange-200">
               <div className="text-center">
                 <div className="mx-auto w-16 h-16 bg-orange-600 rounded-full flex items-center justify-center mb-6">
-                  <Activity className="h-8 w-8 text-white" />
+                  <Zap className="h-8 w-8 text-white" />
                 </div>
                 <h3 className="text-2xl font-bold text-gray-900 mb-4">
                   Badminton Skill Assessment

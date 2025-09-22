@@ -12,6 +12,7 @@ import { TalentAssessment } from './components/assessment/TalentAssessment';
 import { Leaderboard } from './components/leaderboard/Leaderboard';
 import { Community } from './components/community/Community';
 import { CoachDashboard } from './components/coach/CoachDashboard';
+import { BodyMetricsAnalysis } from './components/bodymetrics/BodyMetricsAnalysis';
 
 function AppRoutes() {
   const { user, loading } = useAuth();
@@ -49,6 +50,7 @@ function AppRoutes() {
         <Route path="/fitness" element={<FitnessAssessment />} />
         <Route path="/badminton" element={<BadmintonAssessment />} />
         <Route path="/profile" element={<Profile />} />
+        <Route path="/body-metrics" element={<BodyMetricsAnalysis />} />
       </Routes>
     </>
   );

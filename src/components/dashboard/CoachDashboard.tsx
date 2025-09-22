@@ -26,7 +26,8 @@ const dummyPlayers = [
     trend: 'up',
     trendValue: 5,
     assessments: 15,
-    nextEvent: 'Sprint Test - Jan 15'
+    nextEvent: 'Sprint Test - Jan 15',
+    spi: 750
   },
   {
     id: 2,
@@ -38,7 +39,8 @@ const dummyPlayers = [
     trend: 'up',
     trendValue: 3,
     assessments: 12,
-    nextEvent: 'Agility Test - Jan 16'
+    nextEvent: 'Agility Test - Jan 16',
+    spi: 680
   },
   {
     id: 3,
@@ -50,7 +52,8 @@ const dummyPlayers = [
     trend: 'down',
     trendValue: 2,
     assessments: 18,
-    nextEvent: 'Strength Test - Jan 17'
+    nextEvent: 'Strength Test - Jan 17',
+    spi: 620
   },
   {
     id: 4,
@@ -62,7 +65,8 @@ const dummyPlayers = [
     trend: 'up',
     trendValue: 7,
     assessments: 14,
-    nextEvent: 'Reflex Test - Jan 18'
+    nextEvent: 'Reflex Test - Jan 18',
+    spi: 720
   },
   {
     id: 5,
@@ -74,7 +78,8 @@ const dummyPlayers = [
     trend: 'stable',
     trendValue: 0,
     assessments: 16,
-    nextEvent: 'Endurance Test - Jan 19'
+    nextEvent: 'Endurance Test - Jan 19',
+    spi: 640
   },
   {
     id: 6,
@@ -86,7 +91,8 @@ const dummyPlayers = [
     trend: 'up',
     trendValue: 4,
     assessments: 13,
-    nextEvent: 'Speed Test - Jan 20'
+    nextEvent: 'Speed Test - Jan 20',
+    spi: 660
   }
 ];
 
@@ -259,6 +265,7 @@ export function CoachDashboard() {
                         <div className="flex-1">
                           <h4 className="font-semibold text-gray-900">{player.name}</h4>
                           <p className="text-sm text-gray-600">{player.position}</p>
+                          <span className="text-xs font-semibold text-blue-600">SPI: {player.spi}</span>
                         </div>
                         <div className={`px-2 py-1 rounded-full text-sm font-semibold ${getScoreColor(player.currentScore)}`}>
                           {player.currentScore}
@@ -313,7 +320,9 @@ export function CoachDashboard() {
                         </div>
                         <div>
                           <h4 className="font-semibold text-gray-900">{player.name}</h4>
-                          <p className="text-sm text-gray-600">{player.position} • {player.lastActive}</p>
+                          <p className="text-sm text-gray-600">
+                            SPI: {player.spi} • {player.assessments} assessments
+                          </p>
                         </div>
                       </div>
                       <div className="flex items-center space-x-6">
@@ -324,8 +333,12 @@ export function CoachDashboard() {
                           </p>
                         </div>
                         <div className="text-center">
+                          <p className="text-sm text-gray-600">SPI</p>
+                          <p className="font-bold text-blue-600">{player.spi}</p>
+                        </div>
+                        <div className="text-center">
                           <p className="text-sm text-gray-600">Trend</p>
-                          {getTrendIcon(player.trend, player.trendValue)}
+                          <span className="text-green-600">↗ +{Math.floor(Math.random() * 10)}</span>
                         </div>
                         <div className="flex space-x-2">
                           <Button

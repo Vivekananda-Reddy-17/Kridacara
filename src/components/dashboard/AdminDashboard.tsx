@@ -39,10 +39,10 @@ const dummyPendingApprovals = [
 ];
 
 const dummyRecentUsers = [
-  { id: 1, name: 'Alex Thompson', email: 'alex@example.com', role: 'player', joined: '2024-01-10', status: 'active' },
-  { id: 2, name: 'Maria Garcia', email: 'maria@example.com', role: 'coach', joined: '2024-01-11', status: 'pending' },
-  { id: 3, name: 'David Lee', email: 'david@example.com', role: 'player', joined: '2024-01-12', status: 'active' },
-  { id: 4, name: 'Lisa Chen', email: 'lisa@example.com', role: 'player', joined: '2024-01-13', status: 'active' }
+  { id: 1, name: 'Alex Thompson', email: 'alex@example.com', role: 'player', joined: '2024-01-10', status: 'active', spi: 742 },
+  { id: 2, name: 'Maria Garcia', email: 'maria@example.com', role: 'coach', joined: '2024-01-11', status: 'pending', spi: 0 },
+  { id: 3, name: 'David Lee', email: 'david@example.com', role: 'player', joined: '2024-01-12', status: 'active', spi: 658 },
+  { id: 4, name: 'Lisa Chen', email: 'lisa@example.com', role: 'player', joined: '2024-01-13', status: 'active', spi: 789 }
 ];
 
 const dummySystemAlerts = [
@@ -408,7 +408,10 @@ export function AdminDashboard() {
                     <div>
                       <h4 className="font-semibold text-gray-900">{user.name}</h4>
                       <p className="text-sm text-gray-600">{user.email}</p>
-                      <p className="text-xs text-gray-500">Joined: {user.joined}</p>
+                      <p className="text-xs text-gray-500">
+                        Joined: {user.joined} 
+                        {user.role === 'player' && ` • SPI: ${user.spi}`}
+                      </p>
                     </div>
                   </div>
                   <div className="text-right">
@@ -416,6 +419,9 @@ export function AdminDashboard() {
                       {user.status}
                     </span>
                     <p className="text-xs text-gray-500 mt-1 capitalize">{user.role}</p>
+                    {user.role === 'player' && (
+                      <p className="text-xs font-semibold text-blue-600 mt-1">SPI: {user.spi}</p>
+                    )}
                   </div>
                 </div>
               ))}
