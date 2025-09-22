@@ -193,5 +193,5 @@ Helps thousands of athletes gain visibility.
 Directly aligns with Khelo India & Fit India schemes.
 
 👥 Team
-Visionaries United — SIH 2025
-Lead: Nandu — nandu@kridacara.example
+CodeYodhas — SIH 2025
+Lead: Nandu — svivekanandareddy17@gmail.com
