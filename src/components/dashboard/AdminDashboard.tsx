@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { Users, Settings, BarChart3, Shield, AlertTriangle, CheckCircle, Clock, TrendingUp, UserCheck, FileText, Database, Activity } from 'lucide-react';
 import { useAuth } from '../../contexts/AuthContext';
 import { Card } from '../ui/Card';
