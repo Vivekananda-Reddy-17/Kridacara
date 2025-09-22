@@ -194,4 +194,4 @@ Directly aligns with Khelo India & Fit India schemes.
 
 👥 Team
 CodeYodhas — SIH 2025
-Lead: Nandu — svivekanandareddy17@gmail.com
+Lead: S Vivekananda Reddy — svivekanandareddy17@gmail.com
